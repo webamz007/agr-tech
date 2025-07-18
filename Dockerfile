@@ -13,7 +13,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . /var/www
 COPY --chown=www-data:www-data . /var/www
 
-RUN chmod -R 755 /var/www
+RUN touch /var/www/database/database.sqlite
+RUN chown -R www-data:www-data /var/www/database
+RUN chmod -R 755 /var/www/database
+
 RUN composer install
 
 COPY .env.example .env
